@@ -15,31 +15,6 @@ summary: "Terraform module for creating Azure Private Endpoints with DNS records
     - [Core Features](#core-features)
     - [Best Practices](#best-practices)
   - [Usage Example](#usage-example)
-  - [Requirements](#requirements)
-  - [Providers](#providers)
-  - [Resources](#resources)
-  - [Required Inputs](#required-inputs)
-    - [ app\_name](#-app_name)
-    - [ dns\_zone\_name](#-dns_zone_name)
-    - [ dns\_zone\_resource\_group\_name](#-dns_zone_resource_group_name)
-    - [ dns\_zone\_resource\_id](#-dns_zone_resource_id)
-    - [ environment](#-environment)
-    - [ location](#-location)
-    - [ private\_endpoint\_name](#-private_endpoint_name)
-    - [ resource\_group\_name](#-resource_group_name)
-    - [ service\_connection](#-service_connection)
-    - [ subnet\_name](#-subnet_name)
-    - [ virtual\_network\_name](#-virtual_network_name)
-    - [ vnet\_resource\_group\_name](#-vnet_resource_group_name)
-  - [Optional Inputs](#optional-inputs)
-    - [ address\_prefixes](#-address_prefixes)
-    - [ create\_subnet](#-create_subnet)
-    - [ log\_analytics\_workspace\_id](#-log_analytics_workspace_id)
-    - [ subnet\_id](#-subnet_id)
-    - [ tags](#-tags)
-  - [Outputs](#outputs)
-    - [ private\_dns\_a\_record](#-private_dns_a_record)
-    - [ private\_endpoint](#-private_endpoint)
 
 <!-- /TOC -->
 
@@ -196,12 +171,6 @@ object({
     subresource_names = optional(list(string), ["sites"])
   })
 ```
-
-### <a name="input_subnet_name"></a> [subnet_name](#input_subnet_name)
-
-Description: Name of the subnet for the private endpoint
-
-Type: `string`
 
 ### <a name="input_virtual_network_name"></a> [virtual_network_name](#input_virtual_network_name)
 

@@ -44,11 +44,6 @@ variable "subnet_id" {
   default     = null
 }
 
-variable "subnet_name" {
-  type        = string
-  description = "Name of the subnet for the private endpoint"
-}
-
 variable "create_subnet" {
   type        = bool
   description = "Whether to create a new subnet for the private endpoint"
