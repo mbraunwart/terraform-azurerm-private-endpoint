@@ -30,5 +30,5 @@ output "private_endpoint" {
 
 output "private_dns_a_record" {
     description = "The private DNS A record"
-    value       = azurerm_private_dns_a_record.name
+    value       = azurerm_private_dns_a_record.fx_dns_a_record
 }
