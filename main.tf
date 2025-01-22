@@ -23,6 +23,29 @@ data "azurerm_virtual_network" "vnet" {
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
 }
 
+resource "azurerm_private_dns_zone" "zone" {
+  name                = var.dns_zone_name
+  resource_group_name = data.azurerm_resource_group.zone_rg.name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "link" {
+  name                  = format("link-%s", azurerm_private_dns_zone.zone.name)
+  private_dns_zone_name = azurerm_private_dns_zone.zone.name
+  resource_group_name   = data.azurerm_resource_group.vnet_rg
+  virtual_network_id    = data.azurerm_virtual_network.vnet.id
+  registration_enabled  = false
+}
+
+resource "azurerm_private_dns_a_record" "fx_dns_a_record" {
+  name                = format("%s-%s", var.app_name, var.environment)
+  zone_name           = var.dns_zone_name
+  resource_group_name = var.dns_zone_resource_group_name
+  records             = [azurerm_private_endpoint.pe.private_service_connection.0.private_ip_address]
+  ttl                 = 300
+
+  tags = merge(var.tags, { "service" = "private-dns-a-record" })
+}
+
 resource "azurerm_private_endpoint" "pe" {
   name                = var.private_endpoint_name
   location            = var.location
@@ -31,7 +54,7 @@ resource "azurerm_private_endpoint" "pe" {
 
   private_dns_zone_group {
     name                 = "link"
-    private_dns_zone_ids = [var.dns_zone_resource_id]
+    private_dns_zone_ids = [azurerm_private_dns_zone.zone.id]
   }
 
   private_service_connection {
@@ -42,15 +65,4 @@ resource "azurerm_private_endpoint" "pe" {
   }
 
   tags = merge(var.tags, { "service" = "private-endpoint" })
-}
-
-resource "azurerm_private_dns_a_record" "fx_dns_a_record" {
-  provider            = azurerm.shd
-  name                = format("%s-%s", var.app_name, var.environment)
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.dns_zone_resource_group_name
-  records             = [azurerm_private_endpoint.pe.private_service_connection.0.private_ip_address]
-  ttl                 = 300
-
-  tags = merge(var.tags, { "service" = "private-dns-a-record" })
 }

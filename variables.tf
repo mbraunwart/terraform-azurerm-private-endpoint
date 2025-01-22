@@ -26,11 +26,13 @@ variable "dns_zone_name" {
 variable "dns_zone_resource_group_name" {
   type        = string
   description = "Name of the resource group containing the private DNS zone"
+  default     = ""
 }
 
 variable "dns_zone_resource_id" {
   type        = string
   description = "Resource ID of the private DNS zone"
+  default     = ""
 }
 
 variable "virtual_network_name" {
