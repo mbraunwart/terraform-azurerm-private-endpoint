@@ -34,6 +34,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
   resource_group_name   = data.azurerm_resource_group.vnet_rg.name
   virtual_network_id    = data.azurerm_virtual_network.vnet.id
   registration_enabled  = false
+
+  tags = merge(var.tags, { "service" = "private-dns-zone-vnet-link" })
 }
 
 resource "azurerm_private_dns_a_record" "fx_dns_a_record" {
