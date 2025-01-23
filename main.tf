@@ -26,7 +26,6 @@ data "azurerm_virtual_network" "vnet" {
 data "azurerm_dns_zone" "dns_zone" {
   name                = var.dns_zone_name
   resource_group_name = var.dns_zone_resource_group_name
-  resource_id         = var.dns_zone_resource_id
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "link" {
