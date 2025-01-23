@@ -40,7 +40,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "link" {
 
 resource "azurerm_private_dns_a_record" "fx_dns_a_record" {
   name                = format("%s-%s", var.app_name, var.environment)
-  zone_name           = var.dns_zone_name
+  zone_name           = data.azurerm_private_dns_zone.dns_zone.name
   resource_group_name = data.azurerm_resource_group.vnet_rg.name
   records             = [azurerm_private_endpoint.pe.private_service_connection.0.private_ip_address]
   ttl                 = 300
