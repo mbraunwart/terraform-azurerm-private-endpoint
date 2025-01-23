@@ -56,7 +56,7 @@ resource "azurerm_private_endpoint" "pe" {
 
   private_dns_zone_group {
     name                 = "link"
-    private_dns_zone_ids = [data.azurerm_private_dns_zone.zone.id]
+    private_dns_zone_ids = [data.azurerm_private_dns_zone.dns_zone.id]
   }
 
   private_service_connection {
