@@ -29,8 +29,8 @@ data "azurerm_dns_zone" "dns_zone" {
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "link" {
-  name                  = format("link-%s", data.azurerm_private_dns_zone.zone.name)
-  private_dns_zone_name = data.azurerm_private_dns_zone.zone.name
+  name                  = format("link-%s", data.azurerm_private_dns_zone.dns_zone.name)
+  private_dns_zone_name = data.azurerm_private_dns_zone.dns_zone.name
   resource_group_name   = data.azurerm_resource_group.vnet_rg.name
   virtual_network_id    = data.azurerm_virtual_network.vnet.id
   registration_enabled  = false
